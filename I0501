@@ -1,0 +1,73 @@
+#include<iostream>
+#include<array>
+#include<cmath>
+using namespace std;
+#ifdef __cplusplus
+extern "C" {
+#endif
+int isDivisibleBy(int M);
+int play(int N);
+#ifdef __cplusplus
+}
+#endif
+
+
+int play(int N) {
+	int n=N;
+  	array<bool,1000010>prime;
+  	prime.fill(true);
+  	for(int i=3;N>=i;i+=2){
+  		if(prime[i]){
+  			for(int j=i*2;N>=j;j+=i){
+  				prime[j]=false;
+			  }
+		  }
+	  }
+	int l,r;
+	int ans,cnt;
+	ans=1;
+			if(isDivisibleBy(2)){
+			l=1;
+			r=1;
+			while(N>=pow(2,r)){
+				r++;
+			}
+			r--;
+			while(l<r){
+				if(isDivisibleBy(pow(2,(l+r+1)/2))){
+					l=(l+r+1)/2;
+				}else{
+					r=(l+r)/2;
+				}
+			}
+			ans*=pow(2,r);	
+			}
+			
+	for(int i=3;N>=i;i+=2){
+		if(i*ans>n){
+			return ans;
+		} 
+		if(prime[i]){
+			
+			if(isDivisibleBy(i)){
+			l=1;
+			r=1;
+			while(N>=pow(i,r)){
+				r++;
+			}
+			r--;
+			while(l<r){
+				if(isDivisibleBy(pow(i,(l+r+1)/2))){
+					l=(l+r+1)/2;
+				}else{
+					r=(l+r)/2;
+				}
+			}
+			ans*=pow(i,l);	
+			}
+			
+		}
+	}
+	return ans;
+	
+}
